@@ -11,3 +11,5 @@ Redux egghead course 1 video 2 - the second principle
 Redux egghead course 1 video 3 - pure and impure functions 
 	A pure finction differes from an impure functions is a return which is dependent on the input params and has no observeable side effects, such as varibale changes, network, or database access
 
+Redux egghead course 1 video 3 - the third principle
+	To mutate the state you must do so in a pure function which accepts the previous state, an action and returns the new state. 
