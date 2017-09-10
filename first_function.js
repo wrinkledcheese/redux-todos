@@ -16,7 +16,6 @@ const { createStore } = Redux; /* ES6 */
 
 const store = createStore( counter ); 
 
-console.log( sotre.getStore() );
+store.subscribe( () => { document.body.innerText = store.getState(); } );
 
-store.dispatch( { type: 'INCREMENT' } );
-console.log( store.getState() );
+document.addEventListener( 'click', () => { store.dispatch( { type : 'INCREMENT' } ); } );
