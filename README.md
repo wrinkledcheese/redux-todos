@@ -8,4 +8,6 @@ Redux egghead course 1 video 2 - the second principle
 	State changes are described with actions to modify the read only state
 
 
+Redux egghead course 1 video 3 - pure and impure functions 
+	A pure finction differes from an impure functions is a return which is dependent on the input params and has no observeable side effects, such as varibale changes, network, or database access
 
