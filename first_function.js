@@ -10,10 +10,27 @@ const function counter( state = 0, action ){
 		return state;
 }
 
-const { createStore } = Redux; /* ES6 */
-// var createStore = Redux.createStore; /*JS*/
-// import { createStore } from 'redux'; /*react + bable*/
+const createStore = ( reducer ) => {
+	let state;
+	let listeners = [];
+	
+	const getState = () => state;
+	
+	const dispatch = ( dispatch ) => {
+		state = reducer( state, action );
+		listeners.forEach( listener => listener() );
+	};
 
+	const subscribe = ( listener ) => {
+		listeners.push( listener );
+		return () => { listeners = listeners.filter( l => l !== listener ); };
+	};
+
+	dispatch( {} );
+	
+	return { getState, dispatch, subscribe };
+
+};
 const store = createStore( counter ); 
 
 const render = () => { document.body.innerText = store.getState(); }; 
