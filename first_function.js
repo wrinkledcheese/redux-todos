@@ -10,30 +10,40 @@ const function counter( state = 0, action ){
 		return state;
 }
 
-const createStore = ( reducer ) => {
-	let state;
-	let listeners = [];
-	
-	const getState = () => state;
-	
-	const dispatch = ( dispatch ) => {
-		state = reducer( state, action );
-		listeners.forEach( listener => listener() );
-	};
+const { createStore } = Redux;
 
-	const subscribe = ( listener ) => {
-		listeners.push( listener );
-		return () => { listeners = listeners.filter( l => l !== listener ); };
-	};
+const Counter = ( {
+	value,
+	onIncrement,
+	onDecrement
 
-	dispatch( {} );
-	
-	return { getState, dispatch, subscribe };
-
+}) => {
+	<div
+		<h1>{ value }</h1>
+		<button onClick={ onIncrement } >+</button>
+		<button onClick={ onDecrement } >-</button>
 };
+
 const store = createStore( counter ); 
 
-const render = () => { document.body.innerText = store.getState(); }; 
+const render = () => {
+	ReactDom.render(
+		<Counter value={ store.getState() }
+		onIncrement={ () => {
+			store.dispatch( {
+				type : 'INCREMENT', 
+			})
+		}
+		onDecrement={ () => {
+			store.dispatch( {
+				type : 'DECREMENT', 
+			})
+		}
+		 />,
+		}
+		document.getElementById( 'root' )
+	);
+}; 
 
 store.subscribe( render );
 render();
