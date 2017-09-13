@@ -45,18 +45,25 @@ const visibilityFilter = (
 	}
 };
 
-const todoApp = ( state = {}, action ) => {
-	return {
-		todos: todos(
-			state.todos,
-			action
-		),
-		visibilityFilter: visibilityFilter( 
-			state.visibilityFilter,
-			action
-		)
-	};
-};
+const { combineReducers } = Redux;
+const todoApp = combineReducers( {
+	//ES6 object literal shorthand notation
+	todos,
+	visibilityFilter
+});
+
+// const todoApp = ( state = {}, action ) => {
+// 	return {
+// 		todos: todos(
+// 			state.todos,
+// 			action
+// 		),
+// 		visibilityFilter: visibilityFilter( 
+// 			state.visibilityFilter,
+// 			action
+// 		)
+// 	};
+// };
 
 const { createStore } = Redux;
 const store = createStore( todoApp );
