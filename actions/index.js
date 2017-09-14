@@ -6,11 +6,6 @@ const addTodo = ( text ) => ({
 	text
 });
 
-const setVisibilityFilter = ( filter ) => ({
-	type: 'SET_VISIBILITY_FILTER',
-	filter
-});
-
 const toggleTodo = ( id ) => ({
 	type: 'TOGGLE_TODO',
 	id
