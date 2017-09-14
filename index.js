@@ -1,22 +1,25 @@
-const { Provider } ReactRedux;
-//import { Provider } from 'react-redux';// babel/npm
-//var Provider = require( 'react-redux').Provider;//es5
-const { createStore } = Redux;
+import 'babel-polyfill';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import todoApp from './reducers';
+import App From './components/App';
+import { loadState, saveState } from './localStorage';
+import throttle from 'lodash/throttle';
 
-const persistedState = {
-	todos: [{
-		id : '0',
-		text: 'Welcome back!',
-		completed: false
-	}],
-};
-
+const persistedState = loadState();
 
 const store = createStore( 
 	todoApp,
 	persistedState
 );
-console.log( store.getState() );
+
+store.subscribe( thro() => {
+	saveState( {
+		todos: store.getState().todos
+	});
+})
 
 ReactDOM.render( 
 	<Provider store={ store }>

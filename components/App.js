@@ -1,4 +1,4 @@
-const TodoApp = () => (
+const App = () => (
 		
 	const visibleTodos = getVisibleTodos(
 		todos,
