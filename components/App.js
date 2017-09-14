@@ -11,8 +11,3 @@ const TodoApp = () => (
 	</div>
 );
 
-const todoApp = combineReducers( {
-	//ES6 object literal shorthand notation
-	todos,
-	visibilityFilter
-});

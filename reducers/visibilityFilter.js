@@ -10,6 +10,8 @@ const visibilityFilter = (
 	}
 };
 
+export default visibilityFilter;
+
 const getVisibleTodos = (
 	todos,
 	filter
