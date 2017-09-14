@@ -3,7 +3,7 @@ import Footer from './Footer';
 import AddTodo from './AddTodo';
 import VisibleTodoList from './VisibleTodoList';
 
-const App = ( { params } ) => (
+const App = () => (
 		
 	const visibleTodos = getVisibleTodos(
 		todos,
@@ -11,9 +11,7 @@ const App = ( { params } ) => (
 	);
 	<div>
 		<AddTodo />
-		<VisibleTodoList 
-			filter={ params.filter || 'all' }
-		/>
+		<VisibleTodoList />
 		<Footer />
 	</div>
 );

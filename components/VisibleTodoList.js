@@ -1,3 +1,8 @@
+import { connect }  from 'react-redux';
+import { withRouter } from 'react-router';
+import { toggleTodo } from '../actions';
+import TodoList from './TodoList';
+
 const getVisibleTodos = (
 	todos,
 	filter
@@ -18,10 +23,10 @@ const getVisibleTodos = (
 	}
 };
 
-const mapStateToTodoListProps = ( state, ownProps ) => ({
+const mapStateToTodoListProps = ( state, { params } ) => ({
 	todos: getVisibleTodos(
 		state.todos,
-		ownProps.filter
+		params.filter || 'all'
 	)
 });
 
@@ -34,7 +39,11 @@ const mapDispatchToTodoListProps =  ( dispatch ) => ({
 const { connect } = ReactRedux;
 //import { connect } from 'react-redux';//bable/npm
 
-const VisibleTodoList = connect(
-	mapStateToTodoListProps,
-	mapDispatchToTodoListProps
-)(TodoList);
+const VisibleTodoList = withRouter( 
+	connect(
+		mapStateToTodoListProps,
+		mapDispatchToTodoListProps
+	)( TodoList )
+);
+
+export default VisibleTodoList;
