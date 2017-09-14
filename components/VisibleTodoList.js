@@ -1,9 +1,27 @@
+const getVisibleTodos = (
+	todos,
+	filter
+) => {
+	switch ( filter ) {
+		case 'all':
+			return todos;
+		case 'completed':
+			return todos.filter( 
+				t => t.completed 
+			);
+		case 'active':
+			return todos.filter( 
+				t => !t.completed 
+			);
+		default:
+			throw new Error( `Unknown filter: ${ filter }.` )
+	}
+};
 
-
-const mapStateToTodoListProps = ( state ) => ({
+const mapStateToTodoListProps = ( state, ownProps ) => ({
 	todos: getVisibleTodos(
 		state.todos,
-		state.visibilityFilter
+		ownProps.filter
 	)
 });
 
