@@ -23,17 +23,11 @@ const getVisibleTodos = (
 	}
 };
 
-const mapStateToTodoListProps = ( state, { params } ) => ({
+const mapStateToProps = ( state, { params } ) => ({
 	todos: getVisibleTodos(
 		state.todos,
 		params.filter || 'all'
 	)
-});
-
-const mapDispatchToTodoListProps =  ( dispatch ) => ({
-	onTodoClick( id ) {
-		dispatch(toggleTodo( id ))
-	}
 });
 
 const { connect } = ReactRedux;
@@ -42,7 +36,7 @@ const { connect } = ReactRedux;
 const VisibleTodoList = withRouter( 
 	connect(
 		mapStateToTodoListProps,
-		mapDispatchToTodoListProps
+		{ onTodoClick: toggleTodo }
 	)( TodoList )
 );
 

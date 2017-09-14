@@ -12,3 +12,9 @@ const TodoList = ({
 		)}
 	</ul>
 }
+
+TodoList.PropTypes = {
+	todos: PropTypes.arrayOf( PropTypes.shape( { 
+		//
+	}))
+};
