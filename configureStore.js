@@ -1,50 +1,24 @@
 import todoApp from './reducers';
-import { createStore } from 'redux';
-
-const logger = ( store ) => ( next ) => { 
-	if ( !console.group ){
-		return next;
-	}
-
-	return ( action ) => {
-		console.group( action.type );
-		console.log( '%c prev state', 'color: gray', store.getState() );
-		console.log( '%c action', 'color:blue', action );
-		const returnValue = next( action );
-		console.log( '%c next state', 'color: green', store.getState() );
-		console.groupEnd( action.type );
-		return returnValue;
-	};
-};
-
-const promise = ( store ) => ( next ) => ( action ) => { 
-	if ( typeof action.then === 'function' ){
-		return action.then( next );
-	}
-	return next( action );
-};
-
-const wrapDispatchWithMiddlewares = ( store, middlewares ) => {
-	middlewares.slice().reverse().forEach( middleware => 
-		store.dispatch = middleware( store )( store.dispatch )
-	);
-};
+import promise from 'redux-promise';
+import createLogger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
 
 const configureStore = () => {
-	const store = createStore( todoApp);
+	
 	const middlewares = [ promise ];
 
 	DEBUG = true;//instead of process.env.NODE_ENV !== 'production' because I don't have node
 	if( DEBUG ){
-		middlewares.push( logger );
+		middlewares.push( createLogger() );
 	}
 
 	middlewares.push( promise );
 
-	wrapDispatchWithMiddlewares( store, middlewares );
-
-	return store;
-
+	return createStore( 
+		todoApp,
+		//persisted state is optional
+		applyMiddleware( ...middlewares )
+	);
 };
 
 export default configureStore;
