@@ -1,22 +1,24 @@
-let nextTodoId = 0;
-const addTodo = ( text ) => {
-	return  {
-		type: 'ADD_TODO',
-		id: nextTodoId++,
-		text
-	};
-};
+import { v4 } from 'node-uuid';
+import * as apifrom '../api';
 
-const setVisibilityFilter = ( filter ) => {
-	return {
-		type: 'SET_VISIBILITY_FILTER',
-		filter
-	};
-};
+const receiveTodos = ( filter, response ) => ({
+	type: 'RECEIVE_TODOS',
+	filter:
+	response
+});
 
-const toggleTodo = ( id ) => {
-	return {
-		type: 'TOGGLE_TODO',
-		id
-	};
-};
+export const fetchTodos = ( filter ) =>
+	api.fetchTodos( filter ).then( response =>
+		receiveTodos( filter, response ) 
+	);
+
+export const addTodo = ( text ) => ({
+	type: 'ADD_TODO',
+	id: v4(),
+	text
+});
+
+export const toggleTodo = ( id ) => ({
+	type: 'TOGGLE_TODO',
+	id
+});

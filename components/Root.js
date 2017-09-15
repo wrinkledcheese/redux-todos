@@ -1,11 +1,16 @@
-const { Provider } ReactRedux;
-//import { Provider } from 'react-redux';// babel/npm
-//var Provider = require( 'react-redux').Provider;//es5
-const { createStore } = Redux;
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
+import App from './App';
 
-ReactDOM.render( 
-	<Provider store={createStore( todoApp ) }>
-		<TodoApp />
-	</Provider>,
-	document.getElementById( 'root' )
+
+
+const Root = ( { store } ) => (
+	<Provider store={ store }>
+		<Router history={ browserHistory }>
+			<Route path='/(:filter)' component={ App } />
+		</Router>
+	</Provider>
 );
+
+export default Root;

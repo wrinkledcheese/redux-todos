@@ -1,4 +1,9 @@
-const TodoApp = () => (
+import React from 'react';
+import Footer from './Footer';
+import AddTodo from './AddTodo';
+import VisibleTodoList from './VisibleTodoList';
+
+const App = () => (
 		
 	const visibleTodos = getVisibleTodos(
 		todos,
@@ -11,8 +16,3 @@ const TodoApp = () => (
 	</div>
 );
 
-const todoApp = combineReducers( {
-	//ES6 object literal shorthand notation
-	todos,
-	visibilityFilter
-});

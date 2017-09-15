@@ -1,16 +1,16 @@
-const mapStateToFilterLinkProps = ( state, ownProps ) => {
-	active: { ownProps.filter === state.visibleTodos }l
+import React from 'react';
+import { Link } from 'react-router';
+
+const FilterLink = ( { filter, children } ) => {
+	<Link 
+		to={ filter === 'all' ? '' : filter }
+		activeStyle={ {
+			textDecoration: 'none',
+			color: 'black'
+		}}
+	>
+		{ children }
+	</Link>
 };
 
-const mapDispatchToFilterLinkProps = ( dispatch, ownProps ) => {
-	return {
-		onClick: () => { 
-			dispatch(setVisibilityFilter( ownProps.filter))
-		}
-	};
-};
-
-const FilterLink = connect (
-	mapStateToFilterLinkProps,
-	mapDispatchToFilterLinkProps
-)( Link );
+export default FilterLink;
