@@ -53,8 +53,6 @@ const todoApp = combineReducers( {
 	visibilityFilter
 });
 
-const { createStore } = Redux;
-const store = createStore( todoApp );
 
 const { Component } = React;
 
@@ -80,6 +78,7 @@ const Link = ({
 
 class FilterLink extends Component {
 	componenetDidMount(){
+		const { store } = this.context;
 		this.unsubscribe = store.subscribe(() =>
 			this.forceUpdate()
 		);
@@ -91,6 +90,7 @@ class FilterLink extends Component {
 
 	render() {
 		const props = this.props;
+		const { store } = this.context;
 		const state = store.getState();
 		return (
 			<Link 
@@ -110,6 +110,9 @@ class FilterLink extends Component {
 		);
 	}
 }
+FilterLink.contextTypes = {
+	store: React.PropTypes.object
+};
 
 const Todo = ( {
 	onClick,
@@ -144,7 +147,7 @@ const TodoList = ({
 	</ul>
 }
 
-const AddTodo = () => {
+const AddTodo = (props, { store }) => {
 	let input;
 
 	return (
@@ -166,28 +169,24 @@ const AddTodo = () => {
 	);
 
 }
+AddTodo.contextTypes = {
+	store: React.PropTypes.object
+};
 
 const Footer = () => {
 	<p>
 		Show:
 		{ ' ' }
-		<FilterLink
-			filter='SHOW_ALL'
-			
-			}
-		>
-		All
+		<FilterLink filter='SHOW_ALL'>
+			All
 		</FilterLink>
 		{ ', ' }
 		<FilterLink filter='SHOW_ACTIVE'>
-		Active
+			Active
 		</FilterLink>
 		{ ', ' }
-		<FilterLink
-			filter='SHOW_COMPLETED'
-			
-		>
-		Completed
+		<FilterLink filter='SHOW_COMPLETED'>
+			Completed
 		</FilterLink>
 	</p>
 }
@@ -212,6 +211,7 @@ const getVisibleTodos = (
 
 class VisibleTodoList extends Component {
 	componenetDidMount(){
+		const { store } = this.context;
 		this.unsubscribe = store.subscribe(() =>
 			this.forceUpdate()
 		);
@@ -223,6 +223,7 @@ class VisibleTodoList extends Component {
 
 	render() {
 		const props = this.props;
+		const { store } = this.context;
 		const state = store.getState();
 
 		return (
@@ -243,6 +244,9 @@ class VisibleTodoList extends Component {
 		);	
 	}
 }
+VisibleTodoList.contextTypes = {
+	store: React.PropTypes.object
+};
 
 let nextTodoId = 0;
 const TodoApp = () => (
@@ -258,8 +262,14 @@ const TodoApp = () => (
 	</div>
 );
 
+const { Provider } ReactRedux;
+//import { Provider } from 'react-redux';// babel/npm
+//var Provider = require( 'react-redux').Provider;//es5
+const { createStore } = Redux;
 
 ReactDOM.render( 
-	<TodoApp />,
+	<Provider store={createStore( todoApp ) }>
+		<TodoApp />
+	</Provider>,
 	document.getElementById( 'root' )
 );
