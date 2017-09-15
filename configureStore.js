@@ -1,11 +1,16 @@
 import todoApp from './reducers';
-import promise from 'redux-promise';
+
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 
+const thunk = ( store ) => ( next ) => ( action ) =>
+	typeof action === 'function' ?
+		action( store.dispatch ) :
+		next( action );
+
 const configureStore = () => {
 	
-	const middlewares = [ promise ];
+	const middlewares = [ thunk ];
 
 	DEBUG = true;//instead of process.env.NODE_ENV !== 'production' because I don't have node
 	if( DEBUG ){
