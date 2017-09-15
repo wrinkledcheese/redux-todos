@@ -1,5 +1,17 @@
 import { comblineReducers } from 'redux';
 
+const handleToggle = ( state, action ) => {
+	const{ result: toggledId, entities } = action.response;
+	const { completed } = entities.todos[ toggledId ];
+	const shouldRemove = (
+		( copleted && filter === 'active') ||
+		( !completed && filter === 'completed' )
+	);
+	return shouldRemove ?
+		state.filter( id => id !== toggledId ) :
+		state;
+};
+
 const createList = ( filter ) => {
 	const ids = ( state = [], action ) => {
 		switch ( action.type ) {
@@ -11,6 +23,8 @@ const createList = ( filter ) => {
 				return filter !=== 'completed' ?
 					[ ...state, action.response.result ] :
 					state;
+			case 'TOGGLE_TODO_SUCCESS':
+				return handleToggle( state, action );
 			default:
 				return state;
 		}
