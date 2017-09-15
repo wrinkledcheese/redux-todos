@@ -3,7 +3,7 @@ import { v4 }from 'node-uuid';
 //this is a fake in memory implemention of something
 //that would be implemented by calling a rest server
 
-const fakeDatabas = {
+const fakeDatabase = {
 	todos: [{
 		id: v4(),
 		text: 'hey',
